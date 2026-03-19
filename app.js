@@ -2,6 +2,12 @@
 const express = require("express");
 const app = express();
 
+//requiring path for using view anywhere
+const path=require("path");
+//telling that our engine is ejs i.e we are using ejs
+app.set("view engine","ejs");
+app.set("views",path.join(__dirname,"views"));
+
 //requiring the listing.js's model called Listing by using its postion
 const Listing = require("./models/listing.js");
 
@@ -28,6 +34,50 @@ app.listen(8080, () => {
 app.get("/", (req, res) => {
     res.send("Root is Working");
 });
+
+//this is index route for website
+app.get("/listings",async (req,res)=>{
+    let allListings=await Listing.find({}); //get all documents from listing collection
+    res.render("./listing/index.ejs",{allListings});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //comment testing listing by creating a sample collection to add to database named 
 
