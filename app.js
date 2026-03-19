@@ -29,25 +29,27 @@ app.get("/", (req, res) => {
     res.send("Root is Working");
 });
 
-//testing listing by creating a sample collection to add to database named 
-app.get("/testListing", async (req, res) => {
-    let sampleListing = new Listing({
-        title: "MY New Villa",
-        description: "100m away from Shreevardhan Beach",
-        price: 1000,
-        location: "Shreevardhan",
-        country: "India"
-    });
-    //saving sampleLisiting Documet to database
+//comment testing listing by creating a sample collection to add to database named 
+
+// app.get("/testListing", async (req, res) => {
     
-    await sampleListing.save()
-        .then(res => {
-            console.log("listing added to databases");
-        })
-        .catch(err => {
-            console.log(err);
-        });
+//     let sampleListing = new Listing({
+//         title: "MY New Villa",
+//         description: "100m away from Shreevardhan Beach",
+//         price: 1000,
+//         location: "Shreevardhan",
+//         country: "India"
+//     });
+    //comment: saving sampleLisiting Document to database
     
-        res.send("listing added to database");
-});
+    // await sampleListing.save()
+    //     .then(res => {
+    //         console.log("listing added to databases");
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+    
+    //     res.send("listing added to database");
+// });
 
