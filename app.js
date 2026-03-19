@@ -2,6 +2,11 @@
 const express = require("express");
 const app = express();
 
+//middleware for reading client data 
+app.use(express.urlencoded({extended:true})); 
+//for reading client i.e http data which is like name:raju&age=20 and convert it to name:"raju" ,age: 20
+
+
 //requiring path for using view anywhere
 const path=require("path");
 //telling that our engine is ejs i.e we are using ejs
@@ -41,7 +46,12 @@ app.get("/listings",async (req,res)=>{
     res.render("./listing/index.ejs",{allListings});
 });
 
-
+//show route 
+app.get("/listings/:id",async(req,res)=>{
+let {id}=req.params;
+const listing=await Listing.findById(id);
+res.render("listing/show.ejs",{listing});
+}); 
 
 
 
