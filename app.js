@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 //middleware for reading client data 
-app.use(express.urlencoded({extended:true})); 
+app.use(express.urlencoded({ extended: true }));
 //for reading client i.e http data which is like name:raju&age=20 and convert it to name:"raju" ,age: 20
 
 
@@ -44,6 +44,20 @@ app.get("/", (req, res) => {
 app.get("/listings",async (req,res)=>{
     let allListings=await Listing.find({}); //get all documents from listing collection
     res.render("./listing/index.ejs",{allListings});
+});
+
+//creating new listing 
+app.get("/listings/new",(req,res)=>{
+    res.render("listing/new.ejs");
+});
+ 
+//accepting Post req for creating new lisiting
+app.post("/listings",async(req,res)=>{
+ //let {title,description,image,price,location,country}=req.body; OR
+//let listing=req.body.listing;
+const newListing=new Listing(req.body.listing); //inserting by using Model(new Lisitng)
+await newListing.save();
+res.redirect("/listings");
 });
 
 //show route 
