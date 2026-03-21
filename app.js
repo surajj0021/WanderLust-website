@@ -6,6 +6,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 //for reading client i.e http data which is like name:raju&age=20 and convert it to name:"raju" ,age: 20
 
+//here we are using methodOverride becuse form cant send PUT method instead it send POST so to over ride it PUT is send in query string using method override
+const methodOverride=require("method-override");
+app.use(methodOverride("_method"));
 
 //requiring path for using view anywhere
 const path=require("path");
@@ -60,6 +63,7 @@ await newListing.save();
 res.redirect("/listings");
 });
 
+
 //show route 
 app.get("/listings/:id",async(req,res)=>{
 let {id}=req.params;
@@ -67,11 +71,20 @@ const listing=await Listing.findById(id);
 res.render("listing/show.ejs",{listing});
 }); 
 
+//edit route 
+app.get("/listings/:id/edit",async(req,res)=>{
+    let{id}=req.params;
+    const listing=await Listing.findById(id);
+    console.log(listing);
+    res.render("listing/edit.ejs",{listing});
+});
 
-
-
-
-
+//update route
+app.put("/listings/:id",async(req,res)=>{
+let{id}=req.params;
+await Listing.findByIdAndUpdate(id,{...req.body.listing});
+res.redirect(`/listings/${id}`);
+});
 
 
 
