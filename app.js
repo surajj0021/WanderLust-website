@@ -1,7 +1,7 @@
 //requiring express
 const express = require("express");
 const app = express();
-
+const ejsMate=require("ejs-mate");
 //middleware for reading client data 
 app.use(express.urlencoded({ extended: true }));
 //for reading client i.e http data which is like name:raju&age=20 and convert it to name:"raju" ,age: 20
@@ -38,6 +38,20 @@ app.listen(8080, () => {
     console.log("server is started");
 });
 
+//ejs mate setup
+app.engine("ejs",ejsMate); //use ejsmate as engine instead of ejs
+app.set("view enjine","ejs"); //Use EJS as the template engine to render views
+
+//for using public folder from anywhere
+app.use(express.static(path.join(__dirname,"public")));
+
+
+
+
+//routes below
+
+
+
 //basic api request for checking root is working or not  
 app.get("/", (req, res) => {
     res.send("Root is Working");
@@ -62,7 +76,6 @@ const newListing=new Listing(req.body.listing); //inserting by using Model(new L
 await newListing.save();
 res.redirect("/listings");
 });
-
 
 //show route 
 app.get("/listings/:id",async(req,res)=>{
