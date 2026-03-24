@@ -1,12 +1,14 @@
-body{
- font-family: "Plus Jakarta Sans", sans-serif !important;
- display: flex;
- flex-direction:column;
- min-height: 100vh;
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-.container{
+
+.container {
     flex: 1;
 }
+
 /* navbar styling  */
 
 .navbar {
@@ -28,7 +30,8 @@ body{
 
 /* footer styling */
 
-.f-info-links a,.f-info-socials i{
+.f-info-links a,
+.f-info-socials i {
     text-decoration: none;
     color: #222222;
 }
@@ -38,62 +41,75 @@ body{
     columns: #222222;
 }
 
-.f-info-links,.f-info-socials,.f-info-brand{
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.f-info{
+.f-info {
     text-align: center;
     display: flex;
     height: 8rem;
-    background-color:#ebebeb;
+    background-color: #ebebeb;
     flex-wrap: wrap;
     align-items: space-evenly;
-    justify-content: center ;
+    justify-content: center;
 }
 
-.f-info-socials i{
+.f-info-socials i {
     font-size: 1.3rem;
-    margin-right:1rem;
+    margin-right: 1rem;
 }
 
 
 /* cards */
-.card{
+.card {
     border: none !important;
-    margin-bottom:2rem  ;
+    margin-bottom: 2rem;
 }
-.card-img-top{
+
+.card-img-top {
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
-} 
-
-.card-body{
-    padding:0px !important;
 }
-.card-text{
-    font-weight:400 !important;
+
+.card-body {
+    padding: 0px !important;
+}
+
+.card-text {
+    font-weight: 400 !important;
     color: black !important;
 }
 
-.listing-link{
+.listing-link {
     text-decoration: none;
 }
+
 /* 
 Card Effect */
-.card-img-overlay{
-border-radius: 1rem !important;
+.card-img-overlay {
+    border-radius: 1rem !important;
 }
-.card-img-overlay:hover{
+
+.card-img-overlay:hover {
     background-color: #cbcbcb;
-    opacity:20%;
+    opacity: 20%;
 }
+
 /* new page */
-.add-btn{
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Edit page */
+.edit-btn {
     background-color: #fe424d !important;
     border: none !important;
 }
