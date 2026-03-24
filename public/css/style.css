@@ -2,18 +2,57 @@
     background-color: rgb(203, 252, 252);
 } */
 
-/* navbar */
+/* navbar styling  */
+
 .navbar {
     height: 5rem;
     background-color: white;
 }
+
 /* navbar icon  */
-.fa-compass{
+.fa-compass {
     color: #fe424d;
     font-size: 2rem;
 }
 
-.nav-link{
-    color: #222222 !important; 
+.nav-link {
+    color: #222222 !important;
     /* important is ued for over powering bootstrap styling; */
 }
+
+
+/* footer styling */
+ 
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    columns: #222222;
+}
+
+.f-info-links,.f-info-socials,.f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info{
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color:#ebebeb;
+    flex-wrap: wrap;
+    align-items: space-evenly;
+    justify-content: center ;
+}
+
+.f-info-socials i{
+    font-size: 1.3rem;
+    margin-right:1rem;
+}
+
