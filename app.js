@@ -62,7 +62,6 @@ const validateListing=(req,res,next)=>{
 //routes below
 
 
-
 //basic api request for checking root is working or not  
 app.get("/", (req, res) => {
     res.send("Root is Working");
