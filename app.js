@@ -49,8 +49,15 @@ app.set("view enjine","ejs"); //Use EJS as the template engine to render views
 //for using public folder from anywhere
 app.use(express.static(path.join(__dirname,"public")));
 
-
-
+//created function for Schema Validation for listings
+const validateListing=(req,res,next)=>{
+    let result=listingSchema.validate(req.body);//checking if the imcoming data is valid or not 
+    if(result.error){
+        throw new ExpressError(400, result.error.details[0].message);
+    }else{
+        next();
+    }
+}
 
 //routes below
 
@@ -74,11 +81,7 @@ app.get("/listings/new",(req,res)=>{
  
 //create Route
 //accepting Post req for creating new lisiting
-app.post("/listings", wrapAsync(async (req, res) => {
-    let result=listingSchema.validate(req.body);//checking if the imcoming data is valid or not 
-    if(result.error){
-        throw new ExpressError(400, result.error.details[0].message);
-    }
+app.post("/listings",validateListing,wrapAsync(async (req, res) => {
     let data = req.body.listing;
     //Handling Empty image problem
     if (!data.image || !data.image.url) {
@@ -103,7 +106,7 @@ res.render("listing/show.ejs",{listing});
 })); 
 
 //edit route 
-app.get("/listings/:id/edit", wrapAsync(async(req,res)=>{
+app.get("/listings/:id/edit",validateListing,wrapAsync(async(req,res)=>{
     let{id}=req.params;
     const listing=await Listing.findById(id);
     console.log(listing);
