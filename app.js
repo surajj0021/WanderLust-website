@@ -69,12 +69,18 @@ app.get("/listings/new",(req,res)=>{
 });
  
 //accepting Post req for creating new lisiting
-app.post("/listings",async(req,res)=>{
- //let {title,description,image,price,location,country}=req.body; OR
-//let listing=req.body.listing;
-const newListing=new Listing(req.body.listing); //inserting by using Model(new Lisitng)
-await newListing.save();
-res.redirect("/listings");
+app.post("/listings", async (req, res) => {
+    let data = req.body.listing;
+    //Handling Empty image problem
+    if (!data.image || !data.image.url) {
+        data.image = {
+            url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+            filename: "default"
+        };
+    }
+    const newListing = new Listing(data);
+    await newListing.save();
+    res.redirect("/listings");
 });
 
 //show route 
@@ -103,7 +109,7 @@ res.redirect(`/listings/${id}`);
 app.delete("/listings/:id",async(req,res)=>{
 let {id}=req.params;
 let deletedListing=await Listing.findByIdAndDelete(id);
-console.log(deletedListing);
+// console.log(deletedListing);
 res.redirect("/listings");
 });
 

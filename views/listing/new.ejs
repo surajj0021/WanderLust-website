@@ -4,39 +4,39 @@
 
             <body>
                 <h3>Create a New Listing</h3>
-                <form method="POST" action="/listings?_method=POST">
+                <form method="POST" action="/listings?_method=POST" class="needs-validation" novalidate>
 
                     <div class="mb-3"><label for="title" class="form-label">Title</label>
-                        <input type="text" name="listing[title]" placeholder="Connaught Place" class="form-control">
+                        <input type="text" name="listing[title]" placeholder="Connaught Place" class="form-control" required>
                     </div>
 
 
                     <div class="mb-3"><label for="description" class="form-label">Description</label>
-                        <textarea name="listing[description]" placeholder="enter description"
+                        <textarea name="listing[description]" placeholder="enter description" required
                             class="form-control"></textarea>
 
                     </div>
 
 
                     <div class="mb-3"><label for="Image" class="form-label">Image</label>
-                        <input type="text" name="listing[image.url]" placeholder="enter image url" class="form-control">
+                        <input type="text" name="listing[image][url]" placeholder="enter image url" class="form-control">
                     </div>
 
 
                     <div class="mb-3"><label for="price" class="form-label">Price</label>
-                        <input type="number" name="listing[price]" placeholder="1,200" class="form-control">
+                        <input type="number" name="listing[price]" placeholder="1,200" class="form-control" required>
                     </div>
 
                     <div class="row">
                         <div class="mb-3 col-md-6"><label for="location" class="form-label">Location</label>
                             <input type="text" name="listing[location]" placeholder="New Delhi"
-                                class="form-control">
+                                class="form-control" required>
                         </div>
 
 
                         <div class="mb-3 col-md-6"><label for="country" class="form-label">Country</label>
                             <input type="text" name="listing[country]" placeholder="India"
-                                class="form-control"><br><br>
+                                class="form-control" required><br><br>
                         </div>
 
                     </div>
