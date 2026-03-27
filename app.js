@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const wrapAsync=require("./utils/wrapAsync.js"); //from utils 
 const ExpressError=require("./utils/expressError.js"); //from utils
+const {listingSchema}=require("./schema.js");
 
 const ejsMate=require("ejs-mate");
 //middleware for reading client data 
@@ -71,8 +72,13 @@ app.get("/listings/new",(req,res)=>{
     res.render("listing/new.ejs");
 });
  
+//create Route
 //accepting Post req for creating new lisiting
 app.post("/listings", wrapAsync(async (req, res) => {
+    let result=listingSchema.validate(req.body);//checking if the imcoming data is valid or not 
+    if(result.error){
+        throw new ExpressError(400, result.error.details[0].message);
+    }
     let data = req.body.listing;
     //Handling Empty image problem
     if (!data.image || !data.image.url) {
@@ -81,7 +87,7 @@ app.post("/listings", wrapAsync(async (req, res) => {
             filename: "default"
         };
     }
-    if(!req.body.listings){
+    if(!req.body.listing){
         throw new ExpressError(400,"Send Valid Data for Listings");
     }
     const newListing = new Listing(data);
