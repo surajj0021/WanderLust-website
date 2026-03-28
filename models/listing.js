@@ -28,7 +28,13 @@ const listingSchema = new Schema({
     },
     country: {
         type: String
-    }
+    },
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            ref:"Review",
+        }
+    ]
 });
 
 //creating model from listing Schema
