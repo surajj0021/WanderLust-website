@@ -29,15 +29,16 @@
             <div class="col-8 offset-3">
                 <hr>
                 <h4>Leave A Review</h4>
-                <form action="/listing/<%=listing.id%>/reviews " method="POST">
-                    <div class="mb-3 mt-3">
+                <form action="/listing/<%=listing.id%>/reviews " method="POST" novalidate class="needs-validation">
+                    <div class="mb-3 mt-3 ">
                         <label for="rating" class="form-label ">Rating</label>
                         <input type="range" id="rating" min="1" max="5" name="review[rating]" class="form-range">
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="comment" class="form-label">Commet</label>
                         <textarea name="review[comment]" cols="15" rows="3" id="comment"
-                            class="form-control"></textarea>
+                            class="form-control " required></textarea>
+                            <div class="invalid-feedback">Please Leave A Comment</div>
                     </div>
                     <button class="btn btn-outline-dark">Submit</button>
                 </form>
@@ -45,3 +46,4 @@
         </div>
 
     </body>
+        <script src="/js/script.js"></script>
