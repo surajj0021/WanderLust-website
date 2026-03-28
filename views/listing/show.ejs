@@ -43,11 +43,18 @@
                     <button class="btn btn-outline-dark">Submit</button>
                 </form>
                 <hr>
-                <h4>All Reviews</h4>
-                <%for(review of listing.reviews){ %>
-                        <li><%=review.comment%>,<%=review.rating%>Stars</li>
-                        
+                <b><p>All Reviews</p></b>
+                <div class="row">
+                 <%for(review of listing.reviews){ %>
+                    <div class="card col-5 ms-3 mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Random Name</h5>
+                            <p class="card-text"><%=review.comment%></p>
+                            <p class="card-text"><%=review.rating%>Stars</p>
+                        </div>
+                    </div>    
                 <%}%>
+              </div>
             </div>
         </div>
 
