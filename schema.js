@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { model } = require("mongoose");
 
 module.exports.listingSchema = Joi.object({
   listing: Joi.object({
@@ -18,3 +19,12 @@ module.exports.listingSchema = Joi.object({
     }).default({})
   }).required()
 });
+
+
+//writing Server Side Validation Schema for Reviews
+module.exports.reviewSchema = Joi.object({
+  review: Joi.object({
+    rating: Joi.number().min(1).max(5).required(),
+    comment: Joi.string().required(),
+  }).required()
+})
