@@ -23,6 +23,9 @@ app.set("views",path.join(__dirname,"views"));
 //requiring the listing.js's model called Listing by using its postion
 const Listing = require("./models/listing.js");
 
+//requring reviews Model
+const Review=require("./models/review.js");
+
 //requiring mongoose
 const mongoose = require("mongoose");
 //node connection to database
@@ -131,10 +134,27 @@ res.redirect("/listings");
 }));
 
 
+//Reviews Route(POST route)
+app.post("/listing/:id/reviews",async(req,res)=>{
+    let listing=await Listing.findById(req.params.id); //extracting listing by id 
+    let newReview= new Review(req.body.review);//creating new review from form submission from show page
+
+    listing.reviews.push(newReview); //pushing review to reviews array of listing
+    await newReview.save();
+    await listing.save();
+    console.log("New Review Saved");
+    res.redirect(`/listings/${listing.id}`);
+});
+
+
+
+
+
 //for all other incoming request rather than this route
 app.use((req,res,next)=>{
 next(new ExpressError(404,"Page Not Found"));
 });
+
 
 //defining middleware for Error handling
 app.use((err,req,res,next)=>{
