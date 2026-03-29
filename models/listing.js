@@ -37,8 +37,21 @@ const listingSchema = new Schema({
     ]
 });
 
+
+
+
+//here when delete operation is done on listing so post(after)that this middleware will execute
+//and delte the reviews that are in this listings
+listingSchema.post("findOneAndDelete", async (listing) => {
+    if (listing) {
+        await Review.deleteMany({_id:{$in:listing.reviews}});
+    }
+});
+
+
 //creating model from listing Schema
 const Listing = mongoose.model("Listing", listingSchema);
 
 //exporting to app.js
 module.exports = Listing;
+
