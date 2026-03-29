@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router(); //requiring router Object
 
 const wrapAsync = require("../utils/wrapAsync.js"); //from utils 
-const { listingSchema, reviewSchema } = require("../schema.js");
+const { listingSchema} = require("../schema.js");
 const ExpressError = require("../utils/expressError.js"); //from utils
 
 //requiring the listing.js's model called Listing by using its postion
