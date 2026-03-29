@@ -5,6 +5,8 @@ const wrapAsync = require("./utils/wrapAsync.js"); //from utils
 const ExpressError = require("./utils/expressError.js"); //from utils
 const { listingSchema, reviewSchema } = require("./schema.js");
 
+const listings=require("./routes/listing.js"); //using routes instead of bulking code in seperate folder
+
 const ejsMate = require("ejs-mate");
 //middleware for reading client data 
 app.use(express.urlencoded({ extended: true }));
@@ -52,15 +54,7 @@ app.set("view enjine", "ejs"); //Use EJS as the template engine to render views
 //for using public folder from anywhere
 app.use(express.static(path.join(__dirname, "public")));
 
-//created function for Schema Validation for listings
-const validateListing = (req, res, next) => {
-    let result = listingSchema.validate(req.body);//checking if the imcoming data is valid or not 
-    if (result.error) {
-        throw new ExpressError(400, result.error.details[0].message);
-    } else {
-        next();
-    }
-}
+
 //created function for Schema Validation for Reviews
 const validateReview = (req, res, next) => {
     let result = reviewSchema.validate(req.body);//checking if the imcoming data is valid or not 
@@ -71,76 +65,8 @@ const validateReview = (req, res, next) => {
     }
 }
 
-//routes below
-
-
-//basic api request for checking root is working or not  
-app.get("/", (req, res) => {
-    res.send("Root is Working");
-});
-
-//this is index route for website
-app.get("/listings", wrapAsync(async (req, res) => {
-    let allListings = await Listing.find({}); //get all documents from listing collection
-    res.render("./listing/index.ejs", { allListings });
-}));
-
-//creating new listing 
-app.get("/listings/new", (req, res) => {
-    res.render("listing/new.ejs");
-});
-
-//create Route
-//accepting Post req for creating new lisiting
-app.post("/listings", validateListing, wrapAsync(async (req, res) => {
-    let data = req.body.listing;
-    //Handling Empty image problem
-    if (!data.image || !data.image.url) {
-        data.image = {
-            url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-            filename: "default"
-        };
-    }
-    if (!req.body.listing) {
-        throw new ExpressError(400, "Send Valid Data for Listings");
-    }
-    const newListing = new Listing(data);
-    await newListing.save();
-    res.redirect("/listings");
-}));
-
-//show route 
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("listing/show.ejs", { listing });
-}));
-
-//edit route 
-app.get("/listings/:id/edit", validateListing, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-    console.log(listing);
-    res.render("listing/edit.ejs", { listing });
-}));
-
-//update route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-    if (!req.body.listings) {
-        throw new ExpressError(400, "Send Valid Data for Listings");
-    }
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    res.redirect(`/listings/${id}`);
-}));
-
-//delete route
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let deletedListing = await Listing.findByIdAndDelete(id);
-    // console.log(deletedListing);
-    res.redirect("/listings");
-}));
+///listing Routes Replacement
+app.use("/listings",listings);
 
 
 //Reviews Route(POST route)
